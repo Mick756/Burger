@@ -1,15 +1,29 @@
 <div class="page">
 
-    {{#each burgers}}
-        {{#if this.eaten}}
+    <h1>Eat. That. Burger!</h1>
 
-        {{else}}
+    <div id="notEatenContainer">
+        <h2>Burgers to Devour!</h2>
+        {{#each not_eaten}}
+            <div id="burgerTitle">
+                <p>{{this.title}}</p>
+                <button class="devourButton" data-burger="{{this.title}}">Devour the '{{this.title}}'!</button>
+            </div>
+        {{/each}}
+    </div>
 
-        {{/if}}
-    {{/each}}
+    <div id="eatenContainer">
+        <h2>Burgers eaten!</h2>
+        {{#each eaten}}
+            <div id="burgerTitle">
+                <div>{{this.title}}</div>
+            </div>
+        {{/each}}
+    </div>
 
-    <label for="burgerInput">Enter a Burger Name</label>
+    <label id="inputLabel" for="burgerInput">Enter a Burger Name</label>
     <input id="burgerInput">
+    <button id="inputButton" type="submit">Submit to Menu</button>
 </div>
 
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -17,3 +31,35 @@
 <link type="text/css" rel="stylesheet" href="../public/styles/styles.css" >
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+    $(document).on("click", "#inputButton", (e) => {
+        e.preventDefault();
+        if ($("#burgerInput").val().trim()) {
+            let Burger = {
+                title: $("#burgerInput").val().trim(),
+                eaten: false
+            };
+            $.ajax({
+                type: "POST",
+                url: "/api/add",
+                data: Burger,
+            });
+            location.reload();
+        }
+    });
+
+    $(document).on("click", ".devourButton", function (e) {
+        console.log("boop");
+        e.preventDefault();
+        let title = $(this).attr("data-burger");
+        console.log(title);
+        $.ajax({
+            type: "POST",
+            url: "/api/eat/" + title,
+        }).then(function () {
+            location.reload();
+        });
+    });
+
+</script>

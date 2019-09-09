@@ -1,0 +1,36 @@
+#main {
+    text-align: center;
+    background-color: dodgerblue;
+}
+#inputLabel {
+    display: block;
+    font-size: 20px;
+}
+
+.devourButton {
+    display: inline;
+}
+
+#burgerTitle {
+    font-size: 25px;
+}
+
+#burgerInput {
+    width: 50%;
+}
+
+#eatenContainer {
+    padding: 20px;
+    border: 2px solid black;
+    width: 95%;
+    margin: 30px;
+    background-color: white;
+}
+
+#notEatenContainer {
+    padding: 20px;
+    border: 2px solid black;
+    width: 95%;
+    margin: 30px;
+    background-color: white;
+}
